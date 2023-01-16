@@ -5,6 +5,7 @@ import com.example.musicproject.model.entity.Album;
 import com.example.musicproject.model.entity.Track;
 import com.example.musicproject.model.mapper.TrackMapper;
 import com.example.musicproject.repository.AlbumRepository;
+import com.example.musicproject.repository.PerformerRepository;
 import com.example.musicproject.repository.TrackRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,12 +30,9 @@ public class TrackService {
         for (String element : trackDTO.getAlbumsName()) {
             Album albumToSearch = albumRepository.findByTitle(element).orElse(null);
             if (albumToSearch == null) {
-                Album albumToSave = Album.builder().title(element).build();
-                albumRepository.save(albumToSave);
-                track.getAlbums().add(albumToSave);
-            } else {
-                track.getAlbums().add(albumToSearch);
+                throw new NoSuchElementException("First you must add Album to Repository " + element);
             }
+            track.getAlbums().add(albumToSearch);
         }
         trackRepository.save(track);
         return trackMapper.fromTrack(track);
