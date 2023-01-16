@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,7 +24,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class MusicServiceTest {
+class AlbumServiceTest {
 
     @Mock
     AlbumMapper albumMapper;
@@ -33,7 +32,7 @@ class MusicServiceTest {
     private AlbumRepository albumRepository;
 
     @InjectMocks
-    private MusicService musicService;
+    private AlbumService albumService;
 
     @Test
     void shouldGetAlbumById() {
@@ -58,7 +57,7 @@ class MusicServiceTest {
         when(albumMapper.fromAlbum(album)).thenReturn(albumDTO);
 
 
-        AlbumDTO result = musicService.getAlbum(1L);
+        AlbumDTO result = albumService.getAlbum(1L);
         assertEquals(1L,result.getId());
         assertEquals("title",result.getTitle());
         assertEquals(LocalDate.of(2000,01,02),result.getReleaseDate());
@@ -80,7 +79,7 @@ class MusicServiceTest {
     @Test
     void shouldThrowExceptionWhenAlbumNotExist() {
         assertThrows(NoSuchElementException.class, () -> {
-            musicService.getAlbum(100L);
+            albumService.getAlbum(100L);
         }, "There is no album with id: 100");
     }
 
@@ -100,7 +99,7 @@ class MusicServiceTest {
         when(albumMapper.fromAlbum(album2)).thenReturn(albumDTO2);
         when(albumMapper.fromAlbum(album3)).thenReturn(albumDTO3);
 
-        List<AlbumDTO>  albums = musicService.getListOfAlbums();
+        List<AlbumDTO>  albums = albumService.getListOfAlbums();
 
         assertEquals(3,albums.size());
         assertEquals(albumDTO1,albums.get(0));

@@ -3,10 +3,7 @@ package com.example.musicproject.model.entity;
 import com.example.musicproject.model.entity.Album;
 import com.example.musicproject.model.entity.Performer;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -17,6 +14,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 public class Track {
 

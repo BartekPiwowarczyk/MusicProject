@@ -9,9 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalTime;
@@ -23,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
-public class MusicServiceTestIntegration {
+public class AlbumServiceTestIntegration {
 
     @Autowired
-    MusicService musicService;
+    AlbumService albumService;
 
     @Autowired
     AlbumMapper albumMapper;
@@ -37,7 +34,7 @@ public class MusicServiceTestIntegration {
 
     @Test
     void shouldGetAlbum() {
-        AlbumDTO album = musicService.getAlbum(1L);
+        AlbumDTO album = albumService.getAlbum(1L);
 
         assertEquals(1L,album.getId());
         System.out.println(album.getId());
@@ -62,7 +59,7 @@ public class MusicServiceTestIntegration {
 
         List<String> expectedAlbums = List.of("1. track4", "2. track5");
 
-        List<AlbumDTO> result =  musicService.getListOfAlbums();
+        List<AlbumDTO> result =  albumService.getListOfAlbums();
 
         assertEquals(2, result.size());
         assertEquals(1,result.get(0).getId());

@@ -29,7 +29,7 @@ public class Album {
     @JoinColumn(name="performer_id")
     private Performer performer;
 
-    @NotNull
+
     private LocalDate releaseDate;
 
     @ManyToMany

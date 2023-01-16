@@ -3,13 +3,13 @@ package com.example.musicproject.model.mapper;
 import com.example.musicproject.model.dto.AlbumDTO;
 import com.example.musicproject.model.entity.Album;
 import com.example.musicproject.model.entity.Track;
-import com.example.musicproject.service.MusicService;
+import com.example.musicproject.service.PerformerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,6 +17,17 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class AlbumMapper {
+
+    private final PerformerService performerService;
+    public Album fromAlbumDTO(AlbumDTO albumDTO) {
+        return Album.builder()
+                .title(albumDTO.getTitle())
+                .performer(performerService.getPerformerByName(albumDTO.getPerformer()).orElseGet(()->performerService.createPerformer(albumDTO.getPerformer())))
+                .releaseDate(albumDTO.getReleaseDate())
+                .tracks(new HashSet<>())
+                .build();
+    }
+
     public AlbumDTO fromAlbum(Album album) {
         return AlbumDTO.builder()
                 .id(album.getId())
