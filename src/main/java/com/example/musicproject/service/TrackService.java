@@ -1,11 +1,9 @@
 package com.example.musicproject.service;
 
 import com.example.musicproject.model.dto.TrackDTO;
-import com.example.musicproject.model.entity.Album;
 import com.example.musicproject.model.entity.Track;
-import com.example.musicproject.model.mapper.TrackMapper;
+import com.example.musicproject.model.mapper.TrackMapperStruct;
 import com.example.musicproject.repository.AlbumRepository;
-import com.example.musicproject.repository.PerformerRepository;
 import com.example.musicproject.repository.TrackRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,23 +16,18 @@ public class TrackService {
     private final AlbumRepository albumRepository;
 
     private final TrackRepository trackRepository;
-    private final TrackMapper trackMapper;
+
+    private final TrackMapperStruct trackMapperStruct;
+
 
     public TrackDTO getTrack(Long id) {
         Track track = trackRepository.findById(id).orElseThrow(() -> new NoSuchElementException("There is no track with id: " + id));
-        return trackMapper.fromTrack(track);
+        return trackMapperStruct.mapToTrackDTO(track);
     }
 
     public TrackDTO addTrack(TrackDTO trackDTO) {
-        Track track = trackMapper.fromTrackDTO(trackDTO);
-        for (String element : trackDTO.getAlbumsName()) {
-            Album albumToSearch = albumRepository.findByTitle(element).orElse(null);
-            if (albumToSearch == null) {
-                throw new NoSuchElementException("First you must add Album to Repository " + element);
-            }
-            track.getAlbums().add(albumToSearch);
-        }
+        Track track = trackMapperStruct.mapToTrack(trackDTO);
         trackRepository.save(track);
-        return trackMapper.fromTrack(track);
+        return trackMapperStruct.mapToTrackDTO(track);
     }
 }

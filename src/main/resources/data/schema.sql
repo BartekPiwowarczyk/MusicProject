@@ -17,7 +17,7 @@ create table album
     id           BIGINT AUTO_INCREMENT PRIMARY KEY,
     title        VARCHAR(255) NOT NULL,
     performer_id BIGINT,
-    release_date DATE,
+    release_date DATE NOT NULL,
     FOREIGN KEY (performer_id) REFERENCES performer (id)
 );
 

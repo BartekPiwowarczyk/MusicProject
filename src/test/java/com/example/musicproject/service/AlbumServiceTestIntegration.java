@@ -59,7 +59,7 @@ public class AlbumServiceTestIntegration {
 
         List<String> expectedAlbums = List.of("1. track4", "2. track5");
 
-        List<AlbumDTO> result =  albumService.getListOfAlbums();
+        List<AlbumDTO> result =  albumService.getListOfAlbumsDTO();
 
         assertEquals(2, result.size());
         assertEquals(1,result.get(0).getId());

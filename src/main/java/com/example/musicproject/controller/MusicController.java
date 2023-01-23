@@ -29,7 +29,7 @@ public class MusicController {
 
     @GetMapping("/albums")
     public ResponseEntity<List<AlbumDTO>> getListOfAlbums() {
-        return ResponseEntity.ok().body(albumService.getListOfAlbums());
+        return ResponseEntity.ok().body(albumService.getListOfAlbumsDTO());
     }
 
     @GetMapping("/album/{id}")
@@ -58,7 +58,7 @@ public class MusicController {
     }
 
     @PostMapping("/track")
-    public ResponseEntity<TrackDTO> saveAlbum(@Valid @RequestBody TrackDTO track) {
+    public ResponseEntity<TrackDTO> saveTrack(@Valid @RequestBody TrackDTO track) {
         return new ResponseEntity<>(trackService.addTrack(track), HttpStatus.CREATED);
     }
 

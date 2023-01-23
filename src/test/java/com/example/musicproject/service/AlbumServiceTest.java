@@ -99,7 +99,7 @@ class AlbumServiceTest {
         when(albumMapper.fromAlbum(album2)).thenReturn(albumDTO2);
         when(albumMapper.fromAlbum(album3)).thenReturn(albumDTO3);
 
-        List<AlbumDTO>  albums = albumService.getListOfAlbums();
+        List<AlbumDTO>  albums = albumService.getListOfAlbumsDTO();
 
         assertEquals(3,albums.size());
         assertEquals(albumDTO1,albums.get(0));
